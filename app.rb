@@ -13,8 +13,8 @@ get '/' do
 end
 
 # 1
-get '/one' do
-	erb "<h2> One </h2>"
+get '/about' do
+	erb :about
 end
 
 # 2
