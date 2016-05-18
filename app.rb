@@ -9,7 +9,7 @@ end
 
 # главная страница
 get '/' do
-	erb "<h1> Hello! </h1>"
+	erb :index
 end
 
 # 1
