@@ -1,10 +1,6 @@
 function bubu() {
-	var x=localStorage.getItem('x');
-	if (x==null) {
-		localStorage.setItem('x', 1);
-	} else {
-		localStorage.setItem('x', x+1);
-	}
-	x=localStorage.getItem('x');
+	var x=localStorage.getItem('xxx');
+	x=+x+1;
+	localStorage.setItem('xxx', x);
 	alert(x);
 }
