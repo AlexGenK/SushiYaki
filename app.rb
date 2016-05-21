@@ -1,6 +1,15 @@
 #encoding: utf-8
 require 'sinatra'
 require 'sinatra/reloader'
+require 'sinatra/activerecord'
+
+# объявление БД
+set :database, "sqlite3:sushiyaki.db"
+
+# Модель - продукт в магазине
+class Product < ActiveRecord::Base
+	
+end
 
 # процедура инициализации
 configure do
