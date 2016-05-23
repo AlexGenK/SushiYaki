@@ -1,2 +1,18 @@
-<h3>Welcome to SushiYaki!</h3>
-<button type="button" class="btn btn-success btn-lg btn-block" onclick="bubu()">Info</button>
+<h2>Добро пожаловать в SushiYaki!</h2>
+<div class="row">
+
+	<% @prod.each do |pr| %>
+	  <div class="col-md-3">
+	    <div class="thumbnail">
+	      <img src="<%= pr.path_to_pict %>" alt="<%= pr.title %>">
+	      <div class="caption">
+	        <h3><%= pr.title %></h3>
+	        <p><%= pr.description %></p>
+	        <p><%= pr.quantity.to_i %> штук/<%= pr.weight.to_i %> грам</p>
+	        <b>Цена: <%= pr.price/100 %> грн.</b>
+	      </div>
+	    </div>
+	  </div>
+	<% end %>
+
+</div>

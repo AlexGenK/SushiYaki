@@ -18,6 +18,7 @@ end
 
 # главная страница
 get '/' do
+	@prod=Product.all
 	erb :index
 end
 
