@@ -27,7 +27,7 @@ class AddProducts < ActiveRecord::Migration
 
   	Product.create 	:title => 'Кани спайси',
   					:description => 'Острые роллы со снежным крабом.',
-  					:path_to_pict => '/Image/CappaMaki.jpg',
+  					:path_to_pict => '/Image/KaniSpicy.jpg',
   					:quantity => 6,
   					:weight =>  160,
   					:best_offer => false,
