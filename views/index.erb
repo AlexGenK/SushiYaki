@@ -1,18 +1,23 @@
 <h2>Добро пожаловать в SushiYaki!</h2>
-<div class="row">
 
-	<% @prod.each do |pr| %>
-	  <div class="col-md-3">
-	    <div class="thumbnail">
-	      <img src="<%= pr.path_to_pict %>" alt="<%= pr.title %>">
-	      <div class="caption">
-	        <h3><%= pr.title %></h3>
-	        <p><%= pr.description %></p>
-	        <p><%= pr.quantity.to_i %> штук/<%= pr.weight.to_i %> грам</p>
-	        <b>Цена: <%= pr.price/100 %> грн.</b>
-	      </div>
-	    </div>
-	  </div>
-	<% end %>
-
-</div>
+<% i=0 %>
+<% while i<@prod.size %>
+	<div class="row">
+		<% 4.times do %>
+			<div class="col-md-3">
+			    <div class="thumbnail">
+			      <img src="<%= @prod[i].path_to_pict %>" alt="<%= @prod[i].title %>">
+			      <div class="caption">
+			        <h3><%= @prod[i].title %></h3>
+			        <p><%= @prod[i].description %></p>
+			        <p><%= @prod[i].quantity.to_i %> штук/<%= @prod[i].weight.to_i %> грам</p>
+			        <% price=@prod[i].price/100 %>
+			        <b>Цена: <%= "%6.2f" % price.to_s %> грн.</b>
+			      </div>
+			    </div>
+			</div>
+			<% i+=1 %>
+			<% break if i>@prod.size %>
+		<% end %>
+	</div>
+<% end %>

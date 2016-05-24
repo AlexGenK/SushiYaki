@@ -34,36 +34,36 @@ class AddProducts < ActiveRecord::Migration
   					:price => 5000
 
     Product.create  :title => 'Маруяки сякэ',
-            :description => 'Роллы из обжареного лосося с соусом тартар в икре капеллана.',
-            :path_to_pict => '/Image/Maruyaki.jpg',
-            :quantity => 7,
-            :weight =>  210,
-            :best_offer => true,
-            :price => 6000
+		            :description => 'Роллы из обжареного лосося с соусом тартар в икре капеллана.',
+		            :path_to_pict => '/Image/Maruyaki.jpg',
+		            :quantity => 7,
+		            :weight =>  210,
+		            :best_offer => true,
+		            :price => 6000
 
     Product.create  :title => 'Салмон',
-            :description => 'Роллы с лососем, огурцом и авокадо.',
-            :path_to_pict => '/Image/Salmon.jpg',
-            :quantity => 8,
-            :weight =>  220,
-            :best_offer => false,
-            :price => 6800
+		            :description => 'Роллы с лососем, огурцом и авокадо.',
+		            :path_to_pict => '/Image/Salmon.jpg',
+		            :quantity => 8,
+		            :weight =>  220,
+		            :best_offer => false,
+		            :price => 6800
 
     Product.create  :title => 'Спайси сякэ',
-            :description => 'Острые роллы с лососем и сыром.',
-            :path_to_pict => '/Image/SpicySyake.jpg',
-            :quantity => 6,
-            :weight =>  170,
-            :best_offer => false,
-            :price => 6900
+		            :description => 'Острые роллы с лососем и сыром.',
+		            :path_to_pict => '/Image/SpicySyake.jpg',
+		            :quantity => 6,
+		            :weight =>  170,
+		            :best_offer => false,
+		            :price => 6900
 
     Product.create  :title => 'Нинуку киноко',
-            :description => 'Роллы из грибов с нежным чесночным кремом.',
-            :path_to_pict => '/Image/Niniku.jpg',
-            :quantity => 6,
-            :weight =>  160,
-            :best_offer => false,
-            :price => 5900
+		            :description => 'Роллы из грибов с нежным чесночным кремом.',
+		            :path_to_pict => '/Image/Niniku.jpg',
+		            :quantity => 6,
+		            :weight =>  160,
+		            :best_offer => false,
+		            :price => 5900
 
   end
 
