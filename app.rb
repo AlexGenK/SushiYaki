@@ -18,8 +18,8 @@ end
 
 # главная страница
 get '/' do
-	# выбираем все продукты
-	@prod=Product.all
+	# выбираем все продукты в алфавитном порядке
+	@prod=Product.order(:title)
 	erb :index
 end
 
