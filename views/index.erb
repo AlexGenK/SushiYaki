@@ -25,7 +25,10 @@
 			        <!-- так как цена хранится в копейках, переводим ее в гривны и форматированно (с двумя знаками после запятой) -->
 			        <!-- выводим ее на экран -->
 			        <% price=@prod[i].price/100 %>
-			        <b>Цена: <%= "%6.2f" % price.to_s %> грн.</b>
+			        <p><b>Цена: <%= "%6.2f" % price.to_s %> грн.</b></p>
+			       	<p>
+			        <button type="button" class="btn btn-success btn-block" onclick="add_to_cart('<%= @prod[i].id %>')">Добавить в корзину</button>
+			        </p>
 			      </div>
 			    </div>
 
