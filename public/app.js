@@ -6,5 +6,9 @@ function bubu() {
 }
 
 function add_to_cart(id) {
-	alert("You add sushi with ID #"+id);
+	id='prod_'+id
+	var x=localStorage.getItem(id);
+	x=+x+1;
+	localStorage.setItem(id, x);
+	alert("You add sushi with ID #"+id+ " - "+x);
 }
