@@ -1,3 +1,11 @@
+<!-- Запуск плагина matchHeight выравнивающего высоту ячеек, в которых отображаются продукты -->
+<script type="text/javascript">
+  $(function(){
+  		// плагин отрабатыввет для всех элементов класса caption
+ 		$('.caption').matchHeight();
+  })
+</script>
+
 <h2>Добро пожаловать в SushiYaki!</h2>
 
 <!-- счетчик продуктов -->
@@ -26,10 +34,8 @@
 			        <!-- выводим ее на экран -->
 			        <% price=@prod[i].price/100 %>
 			        <p><b>Цена: <%= "%6.2f" % price.to_s %> грн.</b></p>
-			       	<p>
-			        <button type="button" class="btn btn-success btn-block" onclick="add_to_cart('<%= @prod[i].id %>')">Добавить в корзину</button>
-			        </p>
 			      </div>
+			      <button type="button" class="btn btn-success btn-block" onclick="add_to_cart('<%= @prod[i].id %>')">Добавить в корзину</button>
 			    </div>
 
 			</div>
