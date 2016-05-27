@@ -19,7 +19,7 @@ function how_items_to_cart() {
 	var sum=0;
 
 	// проходим по всей длинне хранилища
-	for ( var i = 0; i < localStorage.length; ++i ) {
+	for (var i = 0; i < localStorage.length; ++i) {
 
 		// получаем ключ из хранилища
 		var key = localStorage.key(i);
