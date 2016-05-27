@@ -30,7 +30,28 @@ function how_items_to_cart() {
 		}
 	}
 
-	console.log(sum);
 	return sum;
+
+}
+
+// продукты в корзине возвращаются в виде строки 'ключ=количество'
+function items_in_cart() {
+
+	var str_item='';
+
+	// проходим по всей длинне хранилища
+	for (var i = 0; i < localStorage.length; ++i) {
+
+		// получаем ключ из хранилища
+		var key = localStorage.key(i);
+
+		// суммируем только те значения, ключи которых начинаются с prod_
+		if (key.indexOf('prod_')==0) {
+  			str_item = str_item+key+'='+localStorage.getItem(key)+',';
+		}
+	}
+
+	console.log(str_item);
+	return str_item;
 
 }
