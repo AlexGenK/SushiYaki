@@ -14,7 +14,7 @@ function add_to_cart(id) {
 }
 
 // сколько продуктов находится в корзине
-function how_items_to_cart() {
+function how_many_items_in_cart() {
 
 	var sum=0;
 
