@@ -18,10 +18,19 @@ function how_items_to_cart() {
 
 	var sum=0;
 
-	// проходим по всем ключам хранилища, суммируя их значения
+	// проходим по всей длинне хранилища
 	for ( var i = 0; i < localStorage.length; ++i ) {
-  		sum = sum+localStorage.getItem(localStorage.key( i ))*1;
+
+		// получаем ключ из хранилища
+		var key = localStorage.key(i);
+
+		// суммируем только те значения, ключи которых начинаются с prod_
+		if (key.indexOf('prod_')==0) {
+  			sum = sum+localStorage.getItem(key)*1;
+		}
 	}
-	alert(sum+" element on card")
+
+	console.log(sum);
+	return sum;
 
 }
