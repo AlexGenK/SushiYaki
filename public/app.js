@@ -3,13 +3,17 @@ function add_to_cart(id) {
 
 	// формируем ключ для веб хранилища
 	id='prod_'+id;
+	
 	// получам информацию (сколько уже продуктов с данным id находится в корзине) 
 	// из веб хранилища по ключу
 	var x=localStorage.getItem(id);
 	x=+x+1;
+	
 	// записываем информацию в веб хранилище
 	localStorage.setItem(id, x);
-	alert("You add sushi with ID #"+id+ " - "+x);
+
+	// передаем строку с продуктами в корзине в форму
+	set_orders();
 
 }
 
@@ -34,6 +38,7 @@ function how_many_items_in_cart() {
 
 }
 
+
 // продукты в корзине возвращаются в виде строки 'ключ=количество'
 function items_in_cart() {
 
@@ -51,7 +56,12 @@ function items_in_cart() {
 		}
 	}
 
-	console.log(str_item);
 	return str_item;
 
+}
+
+
+// функция, передающая строку с продуктами в корзине в поле ввода для дальнейшей обработки
+function set_orders() {
+	$('#orders').val(items_in_cart());
 }
