@@ -40,7 +40,7 @@
         			<li>
         				<form action="/cart" method="POST">
         					<input type="hidden" name="orders" id="orders">
-        					<button type="submit" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-shopping-cart"></span> Корзина</button>
+        					<button type="submit" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-shopping-cart"></span><span id="orders_but"></span></button>
         				</form>
         			</li>
         		</ul>
@@ -62,6 +62,7 @@
 		<script type="text/javascript">
   			$(function(){
   	 			set_orders();
+  	 			show_how_many_items();
   			})
 		</script>
 
