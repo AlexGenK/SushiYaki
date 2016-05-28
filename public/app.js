@@ -67,6 +67,7 @@ function set_orders() {
 	$('#orders').val(items_in_cart());
 }
 
+// функция, передающая строку с указанием количества заказов в надпись на кнопке корзины
 function show_how_many_items() {
 	$('#orders_but').text(' Корзина ('+how_many_items_in_cart()+')');
 }
