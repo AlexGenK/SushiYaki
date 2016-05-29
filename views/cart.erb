@@ -1,2 +1,36 @@
 <h1>Корзина</h1>
-<p><%= @hh.inspect %></p>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>№</th>
+			<th>Наименование</th>
+			<th>Цена</th>
+			<th>Количество</th>
+			<th>Общая цена</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% i=1 %>
+		<% @aa.each do |item| %>
+			<tr>
+				<th>
+					<%= i %>
+				</th>
+				<td>
+					<%= item[:name] %>
+				</td>
+				<td>
+					<%= "%6.2f" % item[:price] %> грн.
+				</td>
+				<td>
+					<%= item[:quantity] %>
+				</td>
+				<td>
+					<%= "%6.2f" % item[:sumprice] %> грн.
+				</td>
+			</tr>
+			<% i+=1 %>
+		<% end %>
+	</tbody>
+	
+</table>

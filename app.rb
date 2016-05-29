@@ -39,7 +39,14 @@ get '/three' do
 end
 
 post '/cart' do
-	@hh=str_to_hash(params[:orders])
+	hh=orders_to_hash(params[:orders])
+	i=0
+	@aa=[]
+	hh.each do |key, value| 
+		product=Product.find(key)
+		@aa[i]={:name=>product.title, :price=>(product.price/100).to_f, :quantity=>value, :sumprice=>(value*product.price/100).to_f}
+		i+=1
+	end
 	erb :cart
 end
 
@@ -51,9 +58,9 @@ def get_error_message(hh)
 	return err
 end
 
-def str_to_hash(str)
+def orders_to_hash(str)
 	aa=str.split(",")
 	hh={}
-	aa.each {|item| hh[item.split("=")[0]]=item.split("=")[1]}
+	aa.each {|item| hh[item.split("=")[0].delete!('prod_').to_i]=item.split("=")[1].to_i}
 	return hh
 end
