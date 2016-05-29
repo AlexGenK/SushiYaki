@@ -39,7 +39,8 @@ get '/three' do
 end
 
 post '/cart' do
-	erb "<h2> Cart </h2>"
+	@hh=str_to_hash(params[:orders])
+	erb :cart
 end
 
 # возвращает сообщение о возможных ошибках. принмимает хеш с парой
@@ -48,4 +49,11 @@ def get_error_message(hh)
 	err=""
 	hh.each_key {|param| err+=hh[param] if params[param].strip==""}
 	return err
+end
+
+def str_to_hash(str)
+	aa=str.split(",")
+	hh={}
+	aa.each {|item| hh[item.split("=")[0]]=item.split("=")[1]}
+	return hh
 end
