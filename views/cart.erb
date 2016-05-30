@@ -6,11 +6,12 @@
 			<th>Наименование</th>
 			<th>Цена</th>
 			<th>Количество</th>
-			<th>Общая цена</th>
+			<th>Итого</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% i=1 %>
+		<% sum=0 %>
 		<% @aa.each do |item| %>
 			<tr>
 				<th>
@@ -29,8 +30,10 @@
 					<%= "%6.2f" % item[:sumprice] %> грн.
 				</td>
 			</tr>
+			<% sum += item[:sumprice] %>
 			<% i+=1 %>
 		<% end %>
-	</tbody>
-	
+	</tbody>	
 </table>
+
+<strong>Общая сумма: <%= "%6.2f" % sum %> грн.</strong>
