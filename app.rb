@@ -38,6 +38,10 @@ get '/three' do
 	erb "<h2> Three </h2>"
 end
 
+get '/order' do
+	erb :order
+end
+
 # вывод содержимого корзины
 post '/cart' do
 	# получаем хэш с парами ключ продукта=количество заказов
