@@ -38,10 +38,14 @@ get '/three' do
 	erb "<h2> Three </h2>"
 end
 
+# вывод содержимого корзины
 post '/cart' do
+	# получаем хэш с парами ключ продукта=количество заказов
 	hh=orders_to_hash(params[:orders])
 	i=0
 	@aa=[]
+	# из хэша формируем массив хэшей, где каждый хэш - строка в выводимой таблице 
+	# (наименование, цена, количество, суммарная цена)
 	hh.each do |key, value| 
 		product=Product.find(key)
 		@aa[i]={:name=>product.title, :price=>(product.price/100).to_f, :quantity=>value, :sumprice=>(value*product.price/100).to_f}
@@ -58,6 +62,8 @@ def get_error_message(hh)
 	return err
 end
 
+# преобразуем строку с парами ключ=количество в формате localStorage в аналогичный хэш, 
+# с парами ключ=количество но в формате модели Product
 def orders_to_hash(str)
 	aa=str.split(",")
 	hh={}
