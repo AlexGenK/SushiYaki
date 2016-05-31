@@ -39,6 +39,30 @@ function how_many_items_in_cart() {
 
 }
 
+// удаление продуктов из корзины
+function remove_items_from_cart() {
+
+	// проходим по всей длинне хранилища
+	var len = localStorage.length
+	for (var i = 0; i < len; ++i) {
+
+		// получаем ключ из хранилища
+		var key = localStorage.key(i);
+
+		// удаляем только те значения, ключи которых начинаются с prod_
+		if (key.indexOf('prod_')==0) {
+  			localStorage.removeItem(key);
+  			i-=1;
+  			len-=1;
+		}
+
+	}
+
+	set_orders();
+	show_how_many_items();
+
+}
+
 
 // продукты в корзине возвращаются в виде строки 'ключ=количество'
 function items_in_cart() {
