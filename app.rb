@@ -12,7 +12,9 @@ class Product < ActiveRecord::Base
 end
 
 class Order < ActiveRecord::Base
-	
+	validates :name, :phone, :addres, presence: true
+	validates :phone, format: {with: /\A[\d() +-]{5,}\z/, message: "is incorrect."}
+	validates :name, :addres, length: {minimum: 2}
 end
 
 # процедура инициализации
@@ -49,17 +51,42 @@ end
 # вывод содержимого корзины
 post '/cart' do
 	# получаем хэш с парами ключ продукта=количество заказов
-	hh=orders_to_hash(params[:orders])
+	$hh=orders_to_hash(params[:orders])
 	i=0
 	@aa=[]
 	# из хэша формируем массив хэшей, где каждый хэш - строка в выводимой таблице 
 	# (наименование, цена, количество, суммарная цена)
-	hh.each do |key, value| 
+	$hh.each do |key, value| 
 		product=Product.find(key)
 		@aa[i]={:name=>product.title, :price=>(product.price/100).to_f, :quantity=>value, :sumprice=>(value*product.price/100).to_f}
 		i+=1
 	end
 	erb :cart
+end
+
+post '/order' do
+
+	prodstring=''
+	prodsum=0
+
+	$hh.each do |key, value| 
+		product=Product.find(key)
+		prodstring+="#{product.title} - #{value} шт. "
+		prodsum+=value*product.price/100
+	end
+
+	orderhash = params[:ord]
+	orderhash['products']="#{prodstring}на сумму #{prodsum} грн."
+
+	@o=Order.new orderhash
+
+	if @o.save
+		redirect '/'
+	else
+		@error=$o.errors.full_messages.first
+		erb :order
+	end
+
 end
 
 # возвращает сообщение о возможных ошибках. принмимает хеш с парой
