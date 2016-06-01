@@ -45,6 +45,7 @@ get '/three' do
 end
 
 get '/order' do
+	@o=Order.new
 	erb :order
 end
 
@@ -83,7 +84,7 @@ post '/order' do
 	if @o.save
 		redirect '/'
 	else
-		@error=$o.errors.full_messages.first
+		@error=@o.errors.full_messages.first
 		erb :order
 	end
 
