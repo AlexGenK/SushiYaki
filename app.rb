@@ -11,7 +11,10 @@ class Product < ActiveRecord::Base
 	
 end
 
+# Модель - заказ
 class Order < ActiveRecord::Base
+	
+	# правила верификации
 	validates :name, :phone, :addres, presence: true
 	validates :phone, format: {with: /\A[\d() +-]{5,}\z/, message: "is incorrect."}
 	validates :name, :addres, length: {minimum: 2}
@@ -44,6 +47,7 @@ get '/three' do
 	erb "<h2> Three </h2>"
 end
 
+# форма оформления заказа
 get '/order' do
 	@o=Order.new
 	erb :order
@@ -65,8 +69,11 @@ post '/cart' do
 	erb :cart
 end
 
+# обработка оформленного заказа
 post '/order' do
 
+	# формируем строку с товарами и их количеством (хэш с этими значениями мы уже получили ранее)
+	# а также общую сумму заказа
 	prodstring=''
 	prodsum=0
 
@@ -76,11 +83,17 @@ post '/order' do
 		prodsum+=value*product.price/100
 	end
 
+	# получаем в виде хэша значения из формы заказа
 	orderhash = params[:ord]
+
+	# и добавляем к нему сформированную строку с товарами и суммой
 	orderhash['products']="#{prodstring}на сумму #{prodsum} грн."
 
+	# создаем новый заказ
 	@o=Order.new orderhash
 
+	# если успешно - возвращемся на главную страницу,
+	# если нет - выводим сообщение об ошибках и опять возвращаемся к форме оформления заказа
 	if @o.save
 		redirect '/'
 	else
