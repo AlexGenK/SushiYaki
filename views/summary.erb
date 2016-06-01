@@ -1,0 +1,33 @@
+<script type="text/javascript">
+		$(function(){
+ 			remove_items_from_cart();
+		})
+</script>
+
+<h2>Информация о заказе №<%= @o.id %></h2>
+<table class="table">
+  <tbody>
+  	<tr>
+  		<th>Ф.И.О.</th>
+  		<td><%= @o.name %></td>
+  	</tr>
+  	<tr>
+  		<th>Телефон</th>
+  		<td><%= @o.phone %></td>
+  	</tr>
+  	<tr>
+  		<th>Адрес</th>
+  		<td><%= @o.addres %></td>
+  	</tr>
+  	<tr>
+  		<th>Комментарий</th>
+  		<td><%= @o.comment %></td>
+  	</tr>
+  	<tr>
+  		<th>Заказано</th>
+  		<td><%= @o.products %></td>
+  	</tr>
+  </tbody>
+</table>
+<p>В ближайшее время наш менеджер свяжется с Вами для поддтверждения заказа.</p>
+<a class="btn btn-primary" href="/" role="button">Вернуться</a>

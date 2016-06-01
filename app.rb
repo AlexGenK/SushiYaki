@@ -13,7 +13,7 @@ end
 
 # Модель - заказ
 class Order < ActiveRecord::Base
-	
+
 	# правила верификации
 	validates :name, :phone, :addres, presence: true
 	validates :phone, format: {with: /\A[\d() +-]{5,}\z/, message: "is incorrect."}
@@ -95,7 +95,7 @@ post '/order' do
 	# если успешно - возвращемся на главную страницу,
 	# если нет - выводим сообщение об ошибках и опять возвращаемся к форме оформления заказа
 	if @o.save
-		redirect '/'
+		erb :summary
 	else
 		@error=@o.errors.full_messages.first
 		erb :order
