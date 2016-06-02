@@ -47,6 +47,10 @@ get '/three' do
 	erb "<h2> Three </h2>"
 end
 
+get '/cart' do
+	redirect '/'
+end
+
 # форма оформления заказа
 get '/order' do
 	@o=Order.new
