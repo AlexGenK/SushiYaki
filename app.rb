@@ -92,14 +92,6 @@ post '/order' do
 
 end
 
-# возвращает сообщение о возможных ошибках. принмимает хеш с парой
-# имя_параметра=>выводимое сообщение. если параметр пустой, формируется сообщение
-def get_error_message(hh)
-	err=""
-	hh.each_key {|param| err+=hh[param] if params[param].strip==""}
-	return err
-end
-
 # преобразуем строку с парами ключ=количество в формате localStorage в аналогичный хэш, 
 # с парами ключ=количество но в формате модели Product
 def orders_to_hash(str)
