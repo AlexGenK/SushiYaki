@@ -20,11 +20,6 @@ class Order < ActiveRecord::Base
 	validates :name, :addres, length: {minimum: 2}
 end
 
-# процедура инициализации
-configure do
-
-end
-
 # главная страница
 get '/' do
 	# выбираем все продукты в алфавитном порядке
@@ -32,19 +27,9 @@ get '/' do
 	erb :index
 end
 
-# 1
+# о нас
 get '/about' do
 	erb :about
-end
-
-# 2
-get '/two' do
-	erb "<h2> Two </h2>"
-end
-
-# 3
-get '/three' do
-	erb "<h2> Three </h2>"
 end
 
 get '/cart' do
