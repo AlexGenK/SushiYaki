@@ -58,7 +58,7 @@ post '/order' do
 	prodsum=0
 
 	$aa.each do |item| 
-		prodstring+="#{item[:name]} - #{item[:quantity]} шт. "
+		prodstring+="#{item[:name]} - #{item[:quantity]} шт., "
 		prodsum+=item[:sumprice]
 	end
 
@@ -66,7 +66,7 @@ post '/order' do
 	orderhash = params[:ord]
 
 	# и добавляем к нему сформированную строку с товарами и суммой
-	orderhash['products']="#{prodstring}на сумму #{prodsum} грн."
+	orderhash['products']="#{prodstring[0..-3]} на общую сумму #{"%6.2f" % prodsum} грн."
 
 	# создаем новый заказ
 	@o=Order.new orderhash
