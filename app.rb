@@ -45,31 +45,21 @@ end
 # вывод содержимого корзины
 post '/cart' do
 	# получаем хэш с парами ключ продукта=количество заказов
-	$hh=orders_to_hash(params[:orders])
-	i=0
-	@aa=[]
-	# из хэша формируем массив хэшей, где каждый хэш - строка в выводимой таблице 
-	# (наименование, цена, количество, суммарная цена)
-	$hh.each do |key, value| 
-		product=Product.find(key)
-		@aa[i]={:name=>product.title, :price=>(product.price/100).to_f, :quantity=>value, :sumprice=>(value*product.price/100).to_f}
-		i+=1
-	end
+	$aa=orders_to_array(params[:orders])
 	erb :cart
 end
 
 # обработка оформленного заказа
 post '/order' do
 
-	# формируем строку с товарами и их количеством (хэш с этими значениями мы уже получили ранее)
+	# формируем строку с продуктами и их количеством (массив с этими значениями мы уже получили ранее)
 	# а также общую сумму заказа
 	prodstring=''
 	prodsum=0
 
-	$hh.each do |key, value| 
-		product=Product.find(key)
-		prodstring+="#{product.title} - #{value} шт. "
-		prodsum+=value*product.price/100
+	$aa.each do |item| 
+		prodstring+="#{item[:name]} - #{item[:quantity]} шт. "
+		prodsum+=item[:sumprice]
 	end
 
 	# получаем в виде хэша значения из формы заказа
@@ -92,11 +82,28 @@ post '/order' do
 
 end
 
-# преобразуем строку с парами ключ=количество в формате localStorage в аналогичный хэш, 
-# с парами ключ=количество но в формате модели Product
-def orders_to_hash(str)
-	aa=str.split(",")
-	hh={}
-	aa.each {|item| hh[item.split("=")[0].delete!('prod_').to_i]=item.split("=")[1].to_i}
-	return hh
+# преобразуем строку с парами ключ=количество в формате localStorage в массив хэшей. 
+# каждый элемент массива - хэш - строчка заказа с детальной информацией о порядковом номере, 
+# названии продукта, цене за единицу, количестве, суммарной цене.
+def orders_to_array(str)
+
+	# разбиваем строку с парами ключ=количество в формате localStorage на отдельные пары
+	pairs=str.split(",")
+	aa=[]
+	i=0
+
+	pairs.each do |item| 
+
+		# из каждой пары извлекаем ключ продукта и его количество
+		key = item.split("=")[0].delete!('prod_').to_i
+		value = item.split("=")[1].to_i
+
+		# извлекаем из модели инфомацию о продукте по его ключу
+		product=Product.find(key)
+
+		# формируем элемент массива с информацией о продукте в заказе
+		aa[i]={:n=>i+1, :name=>product.title, :price=>(product.price/100).to_f, :quantity=>value, :sumprice=>(value*product.price/100).to_f}
+		i+=1
+	end
+	return aa
 end

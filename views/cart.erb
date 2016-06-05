@@ -14,12 +14,11 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% i=1 %>
 		<% sum=0 %>
-		<% @aa.each do |item| %>
+		<% $aa.each do |item| %>
 			<tr>
 				<th>
-					<%= i %>
+					<%= item[:n] %>
 				</th>
 				<td>
 					<%= item[:name] %>
@@ -35,7 +34,6 @@
 				</td>
 			</tr>
 			<% sum += item[:sumprice] %>
-			<% i+=1 %>
 		<% end %>
 	</tbody>	
 </table>
