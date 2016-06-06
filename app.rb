@@ -52,14 +52,14 @@ end
 # обработка оформленного заказа
 post '/order' do
 
-	# формируем строку с продуктами и их количеством (массив с этими значениями мы уже получили ранее)
+	# формируем строку с названиями продуктов и их количеством (массив с этими значениями мы уже получили ранее)
 	# а также общую сумму заказа
 	prodstring=''
 	prodsum=0
 
 	$aa.each do |item| 
-		prodstring+="#{item[:name]} - #{item[:quantity]} шт., "
-		prodsum+=item[:sumprice]
+		prodstring+="#{item[:product].title} - #{item[:quantity]} шт., "
+		prodsum+=item[:quantity]*item[:product].price/100
 	end
 
 	# получаем в виде хэша значения из формы заказа
@@ -98,11 +98,8 @@ def orders_to_array(str)
 		key = item.split("=")[0].delete!('prod_').to_i
 		value = item.split("=")[1].to_i
 
-		# извлекаем из модели инфомацию о продукте по его ключу
-		product=Product.find(key)
-
-		# формируем элемент массива с информацией о продукте в заказе
-		aa[i]={:n=>i+1, :name=>product.title, :price=>(product.price/100).to_f, :quantity=>value, :sumprice=>(value*product.price/100).to_f}
+		# формируем элемент массива с объектом-продуктом из заказа и его количеством
+		aa[i]={:n=>i+1, :product=>Product.find(key), :quantity=>value}
 		i+=1
 	end
 	return aa

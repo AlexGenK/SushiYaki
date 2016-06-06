@@ -21,19 +21,21 @@
 					<%= item[:n] %>
 				</th>
 				<td>
-					<%= item[:name] %>
+					<%= item[:product].title %>
 				</td>
 				<td>
-					<%= "%6.2f" % item[:price] %> грн.
+					<% price=item[:product].price/100 %>
+					<%= "%6.2f" %  price %> грн.
 				</td>
 				<td>
 					<%= item[:quantity] %>
 				</td>
 				<td>
-					<%= "%6.2f" % item[:sumprice] %> грн.
+					<% sumprice= price*item[:quantity] %>
+					<%= "%6.2f" % sumprice %> грн.
 				</td>
 			</tr>
-			<% sum += item[:sumprice] %>
+			<% sum += sumprice %>
 		<% end %>
 	</tbody>	
 </table>
