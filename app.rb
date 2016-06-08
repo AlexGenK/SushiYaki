@@ -36,16 +36,15 @@ get '/cart' do
 	redirect '/'
 end
 
-# форма оформления заказа
 get '/order' do
-	@o=Order.new
-	erb :order
+	redirect '/'
 end
 
 # вывод содержимого корзины
 post '/cart' do
 	# получаем массив с парами ключ продукта=количество заказов
 	$aa=orders_to_array(params[:orders])
+	@o=Order.new
 	erb :cart
 end
 
@@ -74,10 +73,10 @@ post '/order' do
 	# если успешно - возвращемся на главную страницу,
 	# если нет - выводим сообщение об ошибках и опять возвращаемся к форме оформления заказа
 	if @o.save
-		erb :summary
+		erb :order
 	else
 		@error=@o.errors.full_messages.first
-		erb :order
+		erb :cart
 	end
 
 end
