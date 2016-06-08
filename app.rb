@@ -63,8 +63,9 @@ post '/order' do
 	# получаем в виде хэша значения из формы заказа
 	orderhash = params[:ord]
 
-	# и добавляем к нему сформированную строку с товарами и суммой
-	orderhash['products']="#{prodstring[0..-3]} на общую сумму #{"%6.2f" % $prodsum} грн."
+	# и добавляем к нему сформированную строку с товарами и сумму заказа
+	orderhash['products']=prodstring[0..-3]
+	orderhash['sum']=$prodsum
 
 	# создаем новый заказ
 	@o=Order.new orderhash

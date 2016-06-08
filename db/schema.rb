@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160601051733) do
     t.string   "addres"
     t.text     "comment"
     t.string   "products"
+    t.decimal  "sum"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
