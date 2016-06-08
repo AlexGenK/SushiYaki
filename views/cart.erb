@@ -14,7 +14,6 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% sum=0 %>
 		<% $aa.each do |item| %>
 			<tr>
 				<th>
@@ -31,16 +30,14 @@
 					<%= item[:quantity] %>
 				</td>
 				<td>
-					<% sumprice= price*item[:quantity] %>
-					<%= "%6.2f" % sumprice %> грн.
+					<%= "%6.2f" % (price*item[:quantity]) %> грн.
 				</td>
 			</tr>
-			<% sum += sumprice %>
 		<% end %>
 	</tbody>	
 </table>
 
-<strong>Общая сумма: <%= "%6.2f" % sum %> грн.</strong>
+<strong>Общая сумма: <%= "%6.2f" % $prodsum %> грн.</strong>
 </br>
 </br>
 

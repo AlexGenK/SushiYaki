@@ -42,8 +42,13 @@ end
 
 # вывод содержимого корзины
 post '/cart' do
-	# получаем массив с парами ключ продукта=количество заказов
+	# получаем массив с информацией о продуктах в заказе
 	$aa=orders_to_array(params[:orders])
+
+	# вычисляем сумму заказа
+	$prodsum=0
+	$aa.each {|item| $prodsum+=item[:quantity]*item[:product].price/100}
+
 	@o=Order.new
 	erb :cart
 end
@@ -52,20 +57,14 @@ end
 post '/order' do
 
 	# формируем строку с названиями продуктов и их количеством (массив с этими значениями мы уже получили ранее)
-	# а также общую сумму заказа
 	prodstring=''
-	prodsum=0
-
-	$aa.each do |item| 
-		prodstring+="#{item[:product].title} - #{item[:quantity]} шт., "
-		prodsum+=item[:quantity]*item[:product].price/100
-	end
+	$aa.each {|item| prodstring+="#{item[:product].title} - #{item[:quantity]} шт., "}
 
 	# получаем в виде хэша значения из формы заказа
 	orderhash = params[:ord]
 
 	# и добавляем к нему сформированную строку с товарами и суммой
-	orderhash['products']="#{prodstring[0..-3]} на общую сумму #{"%6.2f" % prodsum} грн."
+	orderhash['products']="#{prodstring[0..-3]} на общую сумму #{"%6.2f" % $prodsum} грн."
 
 	# создаем новый заказ
 	@o=Order.new orderhash
