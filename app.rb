@@ -32,6 +32,10 @@ get '/' do
 	erb :index
 end
 
+get '/admin' do
+	erb :admin
+end
+
 # о нас
 get '/about' do
 	erb :about
