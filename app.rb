@@ -107,7 +107,7 @@ post '/admin' do
 		# верифицируем введенные данные
 		user_admin=User.new userhash
 		if user_admin.save
-			erb 'Админ записан'
+			erb 'Админ записан, информация выведена'
 		else
 			@error=user_admin.errors.full_messages.first
 			erb :admin
@@ -115,7 +115,12 @@ post '/admin' do
 
 	# если существует - сверяем введенное с имеющимся админским логином/паролем
 	else
-		erb 'Есть пользователь'
+		if (user_admin.login==userhash['login'])&&(user_admin.password==userhash['password'])
+			erb 'Есть пользователь, информация выведена.'
+		else
+			@error='Логин или пароль не верны. Попробуйте еще.'
+			erb :admin
+		end
 	end
 
 end
