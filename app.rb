@@ -32,10 +32,6 @@ get '/' do
 	erb :index
 end
 
-get '/admin' do
-	erb :admin
-end
-
 # о нас
 get '/about' do
 	erb :about
@@ -47,6 +43,11 @@ end
 
 get '/order' do
 	redirect '/'
+end
+
+# админская область - запрос пароля
+get '/admin' do
+	erb :admin
 end
 
 # вывод содержимого корзины
