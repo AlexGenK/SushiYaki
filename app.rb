@@ -20,6 +20,11 @@ class Order < ActiveRecord::Base
 	validates :name, :addres, length: {minimum: 2}
 end
 
+# Модель - пользователь магазина
+class User < ActiveRecord::Base
+	
+end
+
 # главная страница
 get '/' do
 	# выбираем все продукты в алфавитном порядке
