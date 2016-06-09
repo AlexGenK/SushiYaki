@@ -22,7 +22,9 @@ end
 
 # Модель - пользователь магазина
 class User < ActiveRecord::Base
-	
+
+	# правила верификации
+	validates :login, :password, presence: true
 end
 
 # главная страница
@@ -87,6 +89,33 @@ post '/order' do
 	else
 		@error=@o.errors.full_messages.first
 		erb :cart
+	end
+
+end
+
+# ввод админского пароля
+post '/admin' do
+
+	userhash=params[:usr]
+
+	# получаем первую записть из модели User
+	user_admin = User.first
+
+	# если ее не существует, то записывем введенное в качестве админского логина/пароля
+	if user_admin==nil
+
+		# верифицируем введенные данные
+		user_admin=User.new userhash
+		if user_admin.save
+			erb 'Админ записан'
+		else
+			@error=user_admin.errors.full_messages.first
+			erb :admin
+		end
+
+	# если существует - сверяем введенное с имеющимся админским логином/паролем
+	else
+		erb 'Есть пользователь'
 	end
 
 end
