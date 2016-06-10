@@ -97,6 +97,7 @@ end
 post '/admin' do
 
 	userhash=params[:usr]
+	@orders=Order.order(:created_at)
 
 	# получаем первую записть из модели User
 	user_admin = User.first
@@ -107,7 +108,7 @@ post '/admin' do
 		# верифицируем введенные данные
 		user_admin=User.new userhash
 		if user_admin.save
-			erb 'Админ записан, информация выведена'
+			erb :orderslist
 		else
 			@error=user_admin.errors.full_messages.first
 			erb :admin
@@ -116,7 +117,7 @@ post '/admin' do
 	# если существует - сверяем введенное с имеющимся админским логином/паролем
 	else
 		if (user_admin.login==userhash['login'])&&(user_admin.password==userhash['password'])
-			erb 'Есть пользователь, информация выведена.'
+			erb :orderslist
 		else
 			@error='Логин или пароль не верны. Попробуйте еще.'
 			erb :admin

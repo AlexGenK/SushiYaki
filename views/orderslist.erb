@@ -1,0 +1,42 @@
+<h1>Список заказов:</h1>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Дата/время</th>
+			<th>№ заказа</th>
+			<th>ФИО</th>
+			<th>Телефон</th>
+			<th>Заказ</th>
+			<th>На сумму</th>
+			<th>Комментарий</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @orders.each do |item| %>
+			<tr>
+				<td>
+					<%= item.created_at %>
+				</td>
+				<td>
+					<%= item.id %>
+				</td>
+				<td>
+					<%= item.name %>
+				</td>
+				<td>
+					<%= item.phone %>
+				</td>
+				<td>
+					<%= item.products %>
+				</td>
+				<td>
+					<%= "%6.2f" % item.sum %> грн.
+				</td>
+				<td>
+					<%= item.comment %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>	
+</table>
