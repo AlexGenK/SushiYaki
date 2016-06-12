@@ -54,8 +54,9 @@ end
 
 # вывод содержимого корзины
 post '/cart' do
-	# получаем массив с информацией о продуктах в заказе
-	$hh=orders_to_hash(params[:orders])
+	@cart_string=params[:orders]
+	# получаем хеш с информацией о продуктах в заказе
+	@hh=orders_to_hash(@cart_string)
 
 	@o=Order.new
 	erb :cart
@@ -63,17 +64,18 @@ end
 
 # обработка оформленного заказа
 post '/order' do
-
-	# формируем строку с названиями продуктов и их количеством (массив с этими значениями мы уже получили ранее)
-	prodstring=''
-	$hh[:order_items].each {|item| prodstring+="#{item[:product].title} - #{item[:quantity]} шт., "}
-
 	# получаем в виде хэша значения из формы заказа
-	orderhash = params[:ord]
+	orderhash=params[:ord]
+	# и строку с продуктами содержащимися в корзине, которую опять разворачиваем в хеш с полной информацией о продуктах
+	@cart_string=params[:order_items]
+	@hh=orders_to_hash(@cart_string)
+	# формируем строку с названиями продуктов и их количеством
+	prodstring=''
+	@hh[:order_items].each {|item| prodstring+="#{item[:product].title} - #{item[:quantity]} шт., "}
 
 	# и добавляем к нему сформированную строку с товарами и сумму заказа
 	orderhash['products']=prodstring[0..-3]
-	orderhash['sum']=$hh[:order_sum]
+	orderhash['sum']=@hh[:order_sum]
 
 	# создаем новый заказ
 	@o=Order.new orderhash

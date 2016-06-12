@@ -15,7 +15,7 @@
 	</thead>
 	<tbody>
 		<% n=1 %>
-		<% $hh[:order_items].each do |item| %>
+		<% @hh[:order_items].each do |item| %>
 			<tr>
 				<th>
 					<%= n %>
@@ -39,33 +39,35 @@
 	</tbody>	
 </table>
 
-<strong>Общая сумма: <%= "%6.2f" % $hh[:order_sum] %> грн.</strong>
-</br>
-</br>
+<strong>Общая сумма: <%= "%6.2f" % @hh[:order_sum] %> грн.</strong>
+<br>
+<br>
 
 <!-- форма заказа -->
 
 <h2>Введите ваши данные для заказа:</h2>
 <form class="form-horizontal" method="POST" action="/order">
-
+  <div class="form-group">
+  	<input type="hidden" name="order_items" value="<%= @cart_string %>">
+  </div>
   <div class="form-group">
     <label for="ord_fio" class="col-sm-2 control-label">Ф.И.О.:</label>
     <div class="col-sm-10">
-    	<input type="text" class="form-control" id="ord_fio" name="ord[name]" placeholder="Фамилия Имя Отчество" value=<%= @o.name%>>
+    	<input type="text" class="form-control" id="ord_fio" name="ord[name]" placeholder="Фамилия Имя Отчество" value="<%= @o.name%>">
     </div>
   </div>
 
   <div class="form-group">
     <label for="ord_tel" class="col-sm-2 control-label">Телефон:</label>
     <div class="col-sm-10">
-    	<input type="text" class="form-control" id="ord_tel" name="ord[phone]" placeholder="+38(099)999-99-99" value=<%= @o.phone%>>
+    	<input type="text" class="form-control" id="ord_tel" name="ord[phone]" placeholder="+38(099)999-99-99" value="<%= @o.phone%>">
     </div>
   </div>
 
   <div class="form-group">
     <label for="ord_adr" class="col-sm-2 control-label">Адрес:</label>
     <div class="col-sm-10">
-    	<input type="text" class="form-control" id="ord_adr" name="ord[addres]" placeholder="Адрес" value=<%= @o.addres%>>
+    	<input type="text" class="form-control" id="ord_adr" name="ord[addres]" placeholder="Адрес" value="<%= @o.addres%>">
     </div>
   </div>
 
