@@ -13,7 +13,7 @@ function add_to_cart(id) {
 	localStorage.setItem(id, x);
 
 	// передаем строку с продуктами в корзине в форму
-	set_orders();
+	set_cart();
 	// отображаем на кнопке количество заказов
 	show_how_many_items();
 
@@ -61,7 +61,7 @@ function remove_items_from_cart() {
 	}
 
 	// передаем строку с продуктами в корзине в форму
-	set_orders();
+	set_cart();
 	// отображаем на кнопке количество заказов
 	show_how_many_items();
 
@@ -91,8 +91,8 @@ function items_in_cart() {
 
 
 // функция, передающая строку с продуктами в корзине в поле ввода для дальнейшей обработки
-function set_orders() {
-	$('#orders').val(items_in_cart());
+function set_cart() {
+	$('#cst').val(items_in_cart());
 }
 
 // функция, передающая строку с указанием количества заказов в надпись на кнопке корзины

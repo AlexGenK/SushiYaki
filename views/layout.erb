@@ -38,7 +38,7 @@
 			    <ul class="nav navbar-nav navbar-right">
         			<li>
         				<form action="/cart" method="POST">
-        					<input type="hidden" name="orders" id="orders">
+        					<input type="hidden" name="main_cart_string" id="cst">
         					<button type="submit" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-shopping-cart"></span><span id="orders_but"></span></button>
         				</form>
         			</li>
@@ -60,7 +60,7 @@
 		<!-- обновляем строку с продукцией в корзине и строку на кнопке корзины, где указанно общее количество заказов -->
 		<script type="text/javascript">
   			$(function(){
-  	 			set_orders();
+  	 			set_cart();
   	 			show_how_many_items();
   			})
 		</script>

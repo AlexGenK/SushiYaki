@@ -15,7 +15,7 @@
 	</thead>
 	<tbody>
 		<% n=1 %>
-		<% @hh[:order_items].each do |item| %>
+		<% @hh[:cart_items].each do |item| %>
 			<tr>
 				<th>
 					<%= n %>
@@ -39,7 +39,7 @@
 	</tbody>	
 </table>
 
-<strong>Общая сумма: <%= "%6.2f" % @hh[:order_sum] %> грн.</strong>
+<strong>Общая сумма: <%= "%6.2f" % @hh[:cart_sum] %> грн.</strong>
 <br>
 <br>
 
@@ -48,7 +48,7 @@
 <h2>Введите ваши данные для заказа:</h2>
 <form class="form-horizontal" method="POST" action="/order">
   <div class="form-group">
-  	<input type="hidden" name="order_items" value="<%= @cart_string %>">
+  	<input type="hidden" name="cart_string" value="<%= @cart_string %>">
   </div>
   <div class="form-group">
     <label for="ord_fio" class="col-sm-2 control-label">Ф.И.О.:</label>

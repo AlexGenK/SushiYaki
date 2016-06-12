@@ -54,9 +54,9 @@ end
 
 # вывод содержимого корзины
 post '/cart' do
-	@cart_string=params[:orders]
-	# получаем хеш с информацией о продуктах в заказе
-	@hh=orders_to_hash(@cart_string)
+	@cart_string=params[:main_cart_string]
+	# получаем хеш с информацией о продуктах в корзине
+	@hh=cart_to_hash(@cart_string)
 
 	@o=Order.new
 	erb :cart
@@ -67,15 +67,15 @@ post '/order' do
 	# получаем в виде хэша значения из формы заказа
 	orderhash=params[:ord]
 	# и строку с продуктами содержащимися в корзине, которую опять разворачиваем в хеш с полной информацией о продуктах
-	@cart_string=params[:order_items]
-	@hh=orders_to_hash(@cart_string)
-	# формируем строку с названиями продуктов и их количеством
+	@cart_string=params[:cart_string]
+	@hh=cart_to_hash(@cart_string)
+	# формируем для заказа строку с названиями продуктов и их количеством
 	prodstring=''
-	@hh[:order_items].each {|item| prodstring+="#{item[:product].title} - #{item[:quantity]} шт., "}
+	@hh[:cart_items].each {|item| prodstring+="#{item[:product].title} - #{item[:quantity]} шт., "}
 
-	# и добавляем к нему сформированную строку с товарами и сумму заказа
+	# и добавляем к значениям из формы заказа сформированную строку с товарами и сумму заказа
 	orderhash['products']=prodstring[0..-3]
-	orderhash['sum']=@hh[:order_sum]
+	orderhash['sum']=@hh[:cart_sum]
 
 	# создаем новый заказ
 	@o=Order.new orderhash
@@ -132,7 +132,7 @@ end
 
 # преобразуем строку с парами ключ=количество в формате localStorage в хэш, содержащий
 # массив с данными о продуктах и сумму заказа
-def orders_to_hash(str)
+def cart_to_hash(str)
 
 	# разбиваем строку с парами ключ=количество в формате localStorage на отдельные пары
 	pairs=str.split(",")
@@ -154,7 +154,7 @@ def orders_to_hash(str)
 
 	end
 
-	hh[:order_items]=aa
-	hh[:order_sum]=sum
+	hh[:cart_items]=aa
+	hh[:cart_sum]=sum
 	return hh
 end
