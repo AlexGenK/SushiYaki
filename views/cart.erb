@@ -14,10 +14,11 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% $aa.each do |item| %>
+		<% n=1 %>
+		<% $hh[:order_items].each do |item| %>
 			<tr>
 				<th>
-					<%= item[:n] %>
+					<%= n %>
 				</th>
 				<td>
 					<%= item[:product].title %>
@@ -33,11 +34,12 @@
 					<%= "%6.2f" % (price*item[:quantity]) %> грн.
 				</td>
 			</tr>
+			<% n+=1 %>
 		<% end %>
 	</tbody>	
 </table>
 
-<strong>Общая сумма: <%= "%6.2f" % $prodsum %> грн.</strong>
+<strong>Общая сумма: <%= "%6.2f" % $hh[:order_sum] %> грн.</strong>
 </br>
 </br>
 

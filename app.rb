@@ -55,11 +55,7 @@ end
 # вывод содержимого корзины
 post '/cart' do
 	# получаем массив с информацией о продуктах в заказе
-	$aa=orders_to_array(params[:orders])
-
-	# вычисляем сумму заказа
-	$prodsum=0
-	$aa.each {|item| $prodsum+=item[:quantity]*item[:product].price/100}
+	$hh=orders_to_hash(params[:orders])
 
 	@o=Order.new
 	erb :cart
@@ -70,14 +66,14 @@ post '/order' do
 
 	# формируем строку с названиями продуктов и их количеством (массив с этими значениями мы уже получили ранее)
 	prodstring=''
-	$aa.each {|item| prodstring+="#{item[:product].title} - #{item[:quantity]} шт., "}
+	$hh[:order_items].each {|item| prodstring+="#{item[:product].title} - #{item[:quantity]} шт., "}
 
 	# получаем в виде хэша значения из формы заказа
 	orderhash = params[:ord]
 
 	# и добавляем к нему сформированную строку с товарами и сумму заказа
 	orderhash['products']=prodstring[0..-3]
-	orderhash['sum']=$prodsum
+	orderhash['sum']=$hh[:order_sum]
 
 	# создаем новый заказ
 	@o=Order.new orderhash
@@ -132,25 +128,31 @@ post '/del_orders' do
 	erb '<h1 style="color: red">Список заказов очищен</h1>'
 end
 
-# преобразуем строку с парами ключ=количество в формате localStorage в массив хэшей. 
-# каждый элемент массива - строчка заказа - хэш с порядковым номером, объектом-продуктом
-# и количеством продукта
-def orders_to_array(str)
+# преобразуем строку с парами ключ=количество в формате localStorage в хэш, содержащий
+# массив с данными о продуктах и сумму заказа
+def orders_to_hash(str)
 
 	# разбиваем строку с парами ключ=количество в формате localStorage на отдельные пары
 	pairs=str.split(",")
+
 	aa=[]
-	i=0
+	hh={}
+	sum=0
 
 	pairs.each do |item| 
 
 		# из каждой пары извлекаем ключ продукта и его количество
 		key = item.split("=")[0].delete!('prod_').to_i
 		value = item.split("=")[1].to_i
-
+		myprod=Product.find(key)
 		# формируем элемент массива с объектом-продуктом из заказа и его количеством
-		aa[i]={:n=>i+1, :product=>Product.find(key), :quantity=>value}
-		i+=1
+		aa<<{:product=>myprod, :quantity=>value}
+		# формируем сумму заказа
+		sum+=value*myprod.price/100
+
 	end
-	return aa
+
+	hh[:order_items]=aa
+	hh[:order_sum]=sum
+	return hh
 end
