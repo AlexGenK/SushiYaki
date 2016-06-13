@@ -15,7 +15,7 @@ end
 class Order < ActiveRecord::Base
 
 	# правила верификации
-	validates :name, :phone, :addres, presence: true
+	validates :products, :name, :phone, :addres, presence: true
 	validates :phone, format: {with: /\A[\d() +-]{5,}\z/, message: "is incorrect."}
 	validates :name, :addres, length: {minimum: 2}
 end

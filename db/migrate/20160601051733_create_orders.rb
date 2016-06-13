@@ -7,7 +7,7 @@ class CreateOrders < ActiveRecord::Migration
   			t.string :addres
   			t.text :comment
   			t.string :products
-        		t.decimal :sum
+        t.decimal :sum
   			
   			t.timestamps
   		end
