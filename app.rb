@@ -55,6 +55,10 @@ end
 # вывод содержимого корзины
 post '/cart' do
 	@cart_string=params[:main_cart_string]
+
+	# если корзина пуста - выводим сообщение
+	return erb '<h1 style="color: red">Корзина пуста</h1>' if @cart_string.length==0
+
 	# получаем хеш с информацией о продуктах в корзине
 	@hh=cart_to_hash(@cart_string)
 
@@ -88,12 +92,10 @@ post '/order' do
 		@error=@o.errors.full_messages.first
 		erb :cart
 	end
-
 end
 
 # ввод админского пароля
 post '/admin' do
-
 	userhash=params[:usr]
 	@orders=Order.order(:created_at)
 
@@ -121,7 +123,6 @@ post '/admin' do
 			erb :admin
 		end
 	end
-
 end
 
 # удаление всех записей из таблицы заказов
@@ -133,7 +134,6 @@ end
 # преобразуем строку с парами ключ=количество в формате localStorage в хэш, содержащий
 # массив с данными о продуктах и сумму заказа
 def cart_to_hash(str)
-
 	# разбиваем строку с парами ключ=количество в формате localStorage на отдельные пары
 	pairs=str.split(",")
 
